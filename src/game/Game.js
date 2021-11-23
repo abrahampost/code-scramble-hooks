@@ -43,6 +43,8 @@ export const Game = () => {
         }, 50);
 
         return () => clearInterval(interval);
+        
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ scroll, present1, present2, present3 ]);
 
     return (

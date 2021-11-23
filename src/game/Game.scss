@@ -1,0 +1,53 @@
+.game {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background: radial-gradient(#3c3c3f, #797b96);;
+
+    .player, .present {
+        position: absolute;
+        transform: translateY(-50%);
+        height: 5%;
+        overflow: hidden;
+        transition: .1s linear;
+        
+        img {
+            height: 100%;
+            width: auto;    
+        }
+    }
+    
+    .player {
+        left: 5%;
+    }
+
+    .present {
+
+        &.resetting {
+            transition: none;
+        }
+    }
+
+    .score {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 16px;
+        border-radius: 0 0 0 8px;
+        background: #ddd;
+        box-shadow: rgba(51, 51, 51, 0.281) 2px 2px 5px 10px;
+        text-align: center;
+        
+        .saved {
+            color: green;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .misses {
+            color: red;
+            font-size: 14px;
+        }
+    }
+
+}

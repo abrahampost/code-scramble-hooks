@@ -16,19 +16,17 @@ export const Game = () => {
     const present2 = usePresent({ offset: 75, speed: 1.5 });
     const present3 = usePresent({ offset: 125, speed: 1.5 });
 
-    const rerender = useState(0);
-    const forceRerender = () => rerender[1](render => (render + 1) % 1000);
 
     useEffect(() => {
         const interval = setInterval(() => {
             const checkCollision = (present) => {
-                if (present.position.current.left > 5 && present.position.current.left < 10) {
-                    if (Math.abs(present.position.current.top - scroll.current) < 5) {
+                if (present.position.left > 5 && present.position.left < 10) {
+                    if (Math.abs(present.position.top - scroll.current) < 5) {
                         grabPresent();
                         present.reset();
                     }
                 }
-                if(present.position.current.left < -5) {
+                if(present.position.left < -5) {
                     missPresent();
                     present.reset();
                 }
@@ -39,7 +37,6 @@ export const Game = () => {
             present1.moveLeft();
             present2.moveLeft();
             present3.moveLeft();
-            forceRerender();
         }, 50);
 
         return () => clearInterval(interval);

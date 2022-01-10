@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Present } from "../game/entities/Present";
 
 const genRandomStart = (offset = 0) => ({
@@ -8,7 +8,7 @@ const genRandomStart = (offset = 0) => ({
 
 export const usePresent = ({ offset = 0, speed = 2 }) => {
     const [ resetting, setResetting ] = useState(false);
-    const position = useRef(genRandomStart(offset));
+    const [ position, setPosition ] = useState(genRandomStart(offset));
     const reset = () => {
         setResetting(true);
     }
@@ -16,17 +16,16 @@ export const usePresent = ({ offset = 0, speed = 2 }) => {
     useEffect(() => {
         if (resetting) {
             const newStart = genRandomStart();
-            position.current.left = newStart.left;
-            position.current.top = newStart.top;
+            setPosition(position => ({left: newStart.left, top: newStart.top}));
             setTimeout(() => setResetting(false), 20);
         }
     }, [ resetting ])
 
     const moveLeft = () => {
-        position.current = ({ left: position.current.left - speed, top: position.current.top });
+        if (!resetting) setPosition(position => ({ left: position.left - speed, top: position.top }));
     }
 
-    const present = <Present left={position.current.left} top={position.current.top} resetting={resetting}/>;
+    const present = <Present left={position.left} top={position.top} resetting={resetting}/>;
 
     return { reset, position, moveLeft, present };
 }
